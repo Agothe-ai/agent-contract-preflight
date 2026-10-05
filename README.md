@@ -28,6 +28,26 @@ Live machine-readable trust facts:
 
 https://mcp-chatgpt.agothe.ai/.well-known/agothe-muv-trust
 
+## First successful preflight
+
+1. Connect your MCP client to `https://mcp-chatgpt.agothe.ai/mcp` and authorize the bounded `agothe:muv` scope.
+2. Call `muv_start_checkout`. It creates a new MUV wallet and a live **$1 USD** Stripe Checkout Session for **100 credits**. Creating the session is **not** a payment.
+3. Keep `wallet.wallet_token` private and save `checkout.session_id`. Open `checkout.url` and complete payment.
+4. Call `muv_reconcile_checkout` with the same `wallet_token` and `checkout_session_id`. Credits are minted only after the live Checkout/PaymentIntent is verified as paid.
+5. Generate a fresh client-side `spend_id` for the utility call. A UUID is recommended. The ID is an idempotency key, not a secret: reuse it only when retrying the **same wallet + same utility + same credit amount**.
+6. Call `preflight_agent_contract` with:
+   - `wallet_token`
+   - your unique `spend_id`
+   - `tools_json`
+   - `old_schema_json`
+   - `new_schema_json`
+   - `old_version`
+   - `new_version`
+
+`preflight_agent_contract` costs **2 credits** and returns a deterministic PASS / REVIEW / FAIL receipt. Caller supplies all contract inputs; the analysis path performs no model inference or external fetches.
+
+Already have a funded wallet? Start at step 5.
+
 ## What it does
 
 Preflight an agent/tool release before it breaks downstream consumers.
