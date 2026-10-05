@@ -1,0 +1,37 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "ai.agothe.mcp-chatgpt/agent-contract-preflight",
+  "title": "Agothe Agent Contract Preflight",
+  "description": "Deterministic MCP, JSON Schema, and SemVer preflight via Agothe's public MUV scope.",
+  "version": "0.2.0",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://mcp-chatgpt.agothe.ai/mcp"
+    }
+  ],
+  "_meta": {
+    "io.modelcontextprotocol.registry/publisher-provided": {
+      "product": "Agent Contract Preflight",
+      "oauth_scope": "agothe:muv",
+      "public_tools": [
+        "muv_start_checkout",
+        "muv_get_balance",
+        "muv_reconcile_checkout",
+        "validate_mcp_contract",
+        "check_json_schema_compatibility",
+        "check_semver_release",
+        "preflight_agent_contract"
+      ],
+      "contract_tools": [
+        "validate_mcp_contract",
+        "check_json_schema_compatibility",
+        "check_semver_release",
+        "preflight_agent_contract"
+      ],
+      "billing": "Machine Utility Vending credits; live checkout is $1 USD for 100 credits",
+      "runtime": "deterministic-static-analysis",
+      "security_boundary": "agothe:muv exposes only the seven public MUV tools and grants no filesystem, shell, Docker, memory-write, read-context, or Stripe-administration capability"
+    }
+  }
+}
