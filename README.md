@@ -8,6 +8,26 @@
 
 This repository is the **public discovery and trust metadata surface** for Agothe Agent Contract Preflight. It is **not a second MCP implementation** and does not mirror the private runtime.
 
+## Start here
+
+**Product page:** https://agothe.ai/mcp-breaking-change-checker
+
+Use Agent Contract Preflight when you want to check an MCP or agent-tool contract **before release** for schema incompatibility, breaking changes, and SemVer mistakes.
+
+For an OAuth-capable MCP client, the canonical remote server is:
+
+`https://mcp-chatgpt.agothe.ai/mcp`
+
+Authorization uses the bounded `agothe:muv` scope. A good first utility call is `preflight_agent_contract`.
+
+If you discovered the product through GitHub, this bounded attribution entrance is available before connection:
+
+https://mcp-chatgpt.agothe.ai/discover/github
+
+Live machine-readable trust facts:
+
+https://mcp-chatgpt.agothe.ai/.well-known/agothe-muv-trust
+
 ## What it does
 
 Preflight an agent/tool release before it breaks downstream consumers.
