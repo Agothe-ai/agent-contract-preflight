@@ -48,6 +48,26 @@ https://mcp-chatgpt.agothe.ai/.well-known/agothe-muv-trust
 
 Already have a funded wallet? Start at step 5.
 
+### Copy/paste first call
+
+After you have a funded wallet, call `preflight_agent_contract` with a fresh `spend_id`. The three contract inputs are JSON-encoded strings:
+
+```json
+{
+  "wallet_token": "<your-wallet-token>",
+  "spend_id": "550e8400-e29b-41d4-a716-446655440000",
+  "tools_json": "[{\"name\":\"lookup_customer\",\"description\":\"Look up a customer by ID\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"}},\"required\":[\"id\"],\"additionalProperties\":false}}]",
+  "old_schema_json": "{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"}},\"required\":[\"id\"],\"additionalProperties\":false}",
+  "new_schema_json": "{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"include_history\":{\"type\":\"boolean\"}},\"required\":[\"id\"],\"additionalProperties\":false}",
+  "old_version": "1.0.0",
+  "new_version": "1.1.0"
+}
+```
+
+This example adds only an optional field and uses a minor-version bump, so it is a useful first sanity check for the deterministic preflight path. Replace the example tool/schema strings with your own contract before relying on the result.
+
+
+
 ## What it does
 
 Preflight an agent/tool release before it breaks downstream consumers.
